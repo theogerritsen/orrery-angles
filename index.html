@@ -3,8 +3,11 @@
   <head>
     <!-- import aframe and then ar.js with image tracking / location based features -->
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 <link rel="stylesheet" href="ar.css"/>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/ajaxify/8.2.3/ajaxify.js' integrity='sha512-jipua8AH9JbOGVVx5NLMMm8UXqdF7RG+8kVIiVfjniUbMdfPlragzf32/wQ4N9g4d+m5euXVIKxX3h2g4auqSQ==' crossorigin='anonymous'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js' integrity='sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==' crossorigin='anonymous'></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- style for the loader -->
 
   </head>
@@ -37,13 +40,27 @@
       <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
       <a-entity
         gltf-model="assets/Saturn_1_120536.glb"
-        scale="0.001 0.001 0.001"
-        position="0 0 0"
+        scale="0.1 0.1 0.1"
+        position="0 -100 0"
+        rotation="-100 0 0"
       >
       </a-entity>
     </a-nft>
     <!-- static camera that moves according to the device movemenents -->
     <a-entity camera></a-entity>
   </a-scene>
+  <div class="inst-tab">
+    Welcome to your Christmas gift !<br>
+    First things first, you'll have to go and get one of your business cards<br>
+    Once you have one, click on "Ok"
+    <div class="jeu-btn">
+      <button id="jeu-btn" class="itin-btn">Ok !</button>
+    </div>
+  </div>
+  <div id="dialog">
+    Blablabla
+  </div>
+  <script src="menu.js"></script>
+
 </body>
 </html>

@@ -91,51 +91,16 @@
 //         document.querySelector('.menu').classList.toggle("active");
 //     });
 // });
+$(function () {
+    $("#jeu-btn").click(function() {
+        document.querySelector('.inst-tab').classList.toggle("active");
 
-let scene = document.querySelector('#etape3');
+        setTimeout(() => {
+            alert('Now try to film your business card')
+        }, "400")
 
-let nft = document.createElement('a-nft');
-nft.setAttribute('markerhandler', '');
-nft.setAttribute('registerevents', ''   );
-nft.setAttribute('name', 'panneau2');
-nft.setAttribute('type', 'nft');
-nft.setAttribute('url', 'https://raw.githubusercontent.com/theogerritsen/AR_project/main/ar_files/ar_gltf/step3/etape3_p7');
-nft.setAttribute('smooth', 'true');
-nft.setAttribute('smoothCount', '10');
-nft.setAttribute('smoothTolerance', '.01');
-nft.setAttribute('smoothThreshold', '5');
-//nft.setAttribute('raycaster', 'objects: .clickable');
-nft.setAttribute('emitevents', 'true');
-//nft.setAttribute('cursor', 'true: false; rayOrigin:mouse');
-
-
-const infoPlane = document.createElement('a-plane');
-infoPlane.setAttribute('id', 'info1');
-infoPlane.setAttribute('height', '1');
-infoPlane.setAttribute('width', '1');
-infoPlane.setAttribute('position', '0 0 0');
-infoPlane.setAttribute('rotation', '-100 0 0');
-infoPlane.setAttribute('scale', '100 100 100');
-infoPlane.setAttribute('src', '#info1');
-infoPlane.setAttribute('look-at', '[gps-camera]');
-//infoPlane.setAttribute('sound', 'on: click; src: ar_assets/sounds/click.ogg');
-infoPlane.setAttribute('gesture-handler', 'minScale: 0.25; maxScale: 10');
-
-infoPlane.addEventListener('mouseenter', () => {
-    document.querySelector('.centered').classList.add('active');
-    planeId = 'info1';
-});
-
-infoPlane.addEventListener('mouseleave', () => {
-    document.querySelector('.centered').classList.remove('active');
-});
-
-scene.appendChild(nft);
-nft.appendChild(infoPlane);
-
-// on ajoute les NFT à la scène
-
-// et on ajoute chaque panneau à l'intérieur du nft
+    })
+})
 
 
 

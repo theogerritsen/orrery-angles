@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
 .arjs-loader {
     height: 100%;
     width: 100%;
@@ -16,3 +17,82 @@
     font-size: 1.25em;
     color: white;
   }
+
+  .inst-tab {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    position: fixed;
+    overflow: auto;
+    line-height: 3em;
+    font-size: 1em;
+    text-align: center;
+    padding-top: 10em;
+    top: 0em;
+    left: 0;
+    right: 0;
+    bottom: 0em;
+    height: 100vh;
+    width: 100vw;
+    color: #1f1f1f;
+    background-color: #efebd8;
+    -webkit-transition: all 350ms ease;
+    transition: all 350ms ease;
+}
+.inst-tab.active{
+    top: 100vh;
+}
+button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    position: relative;
+    border: 0.125em #1f1f1f solid;
+    padding: 0.8125em 3.125em 0.8125em;
+    letter-spacing: 1px;
+    font-family: inherit;
+    outline: 0;
+    background-color: rgba(0, 0, 0, 0);
+    color: #1f1f1f;
+    margin: 1em;
+    font-size: .7em;
+    cursor: pointer;
+    min-height: 3em;
+    max-width: 80%;
+}
+button::after{
+    content: "";
+    background-color: #8bac9c;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    top: 0.4375em;
+    left: 0.4375em;
+}
+button:active:hover::after{
+    top: 0em;
+    left: 0em;
+}
+
+.a-dialog{
+    font-family: "Roboto Mono", monospace;
+    background-color: #efebd8;
+}
+.a-dialog-allow-button {
+    border: 0.0625em #1f1f1f solid;
+    border-radius: 0em;
+    outline: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+.a-dialog-allow-button::after {
+    z-index: -1;
+}
+.a-dialog-deny-button {
+    border: 0.0625em #1f1f1f solid;
+    border-radius: 0em;
+    outline: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+.a-dialog-deny-button::after {
+    z-index: -1;
+    background-color: #d1706a;
+}
