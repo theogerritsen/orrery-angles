@@ -118,7 +118,7 @@ infoPlane.setAttribute('rotation', '-100 0 0');
 infoPlane.setAttribute('scale', '100 100 100');
 infoPlane.setAttribute('src', '#info1');
 infoPlane.setAttribute('look-at', '[gps-camera]');
-infoPlane.setAttribute('sound', 'on: click; src: ar_assets/sounds/click.ogg');
+//infoPlane.setAttribute('sound', 'on: click; src: ar_assets/sounds/click.ogg');
 infoPlane.setAttribute('gesture-handler', 'minScale: 0.25; maxScale: 10');
 
 infoPlane.addEventListener('mouseenter', () => {
