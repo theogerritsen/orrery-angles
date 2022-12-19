@@ -100,7 +100,17 @@ $(function () {
         }, "400")
 
     })
-})
+});
+
+const ARplanet = document.getElementById("ARplanet");
+
+ARplanet.addEventListener('mouseenter', () => {
+    document.querySelector('.centered').classList.add('active');
+});
+
+ARplanet.addEventListener('mouseleave', () => {
+    document.querySelector('.centered').classList.remove('active');
+});
 
 
 

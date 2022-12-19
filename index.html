@@ -40,6 +40,7 @@
       <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
       <a-entity
         gltf-model="assets/Saturn_1_120536.glb"
+        id="ARplanet"
         scale="0.1 0.1 0.1"
         position="0 -100 0"
         rotation="-100 0 0"
@@ -47,10 +48,18 @@
       </a-entity>
     </a-nft>
     <!-- static camera that moves according to the device movemenents -->
-    <a-entity camera></a-entity>
+    <a-entity camera>
+      <a-cursor
+          id="cursor"
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150" 
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 150" 
+          event-set__mouseenter="_event: mouseenter; color: springgreen" 
+          event-set__mouseleave="_event: mouseleave; color: grey"
+          color="grey"></a-cursor>
+    </a-entity>
   </a-scene>
   <div class="inst-tab">
-    Welcome to your Christmas gift !<br>
+    Hello Gerrit and welcome to your Christmas gift !<br>
     First things first, you'll have to go and get one of your business cards<br>
     Once you have one, click on "Ok"
     <div class="jeu-btn">
@@ -59,6 +68,9 @@
   </div>
   <div id="dialog">
     Blablabla
+  </div>
+  <div class="centered">
+    <button id="change" class="change-btn" data-action="change">Go to orrery</button>
   </div>
   <script src="menu.js"></script>
 

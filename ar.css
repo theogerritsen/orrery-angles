@@ -72,7 +72,24 @@ button:active:hover::after{
     top: 0em;
     left: 0em;
 }
-
+.centered {
+    height: 10%;
+    font-family: 'Poppins', sans-serif;
+    font-weight: lighter;
+    justify-content: center;
+    position: fixed;
+    bottom: -100px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0em auto;
+    left: 0;
+    right: 0;
+    transition: all 350ms ease;
+}
+.centered.active {
+    bottom: 0%;
+}
 .a-dialog{
     font-family: "Roboto Mono", monospace;
     background-color: #efebd8;
