@@ -22,16 +22,16 @@
   <!-- a-frame scene -->
   <a-scene
     vr-mode-ui="enabled: false;"
-    renderer="logarithmicDepthBuffer: true;"
+    renderer="logarithmicDepthBuffer: true; antialias:true; alpha: true;"
     embedded
-    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
   >
     <!-- a-nft is the anchor that defines an Image Tracking entity -->
     <!-- on 'url' use the path to the Image Descriptors created before. -->
     <!-- the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' -->
     <a-nft
       type="nft"
-      url="https://raw.githubusercontent.com/theogerritsen/AR_project/main/ar_files/ar_gltf/step3/etape3_p7"
+      url="https://raw.githubusercontent.com/theogerritsen/orrery-angles/main/assets/fset/gerrit"
       smooth="true"
       smoothCount="10"
       smoothTolerance=".01"
@@ -42,8 +42,8 @@
         gltf-model="assets/Saturn_1_120536.glb"
         id="ARplanet"
         scale="0.1 0.1 0.1"
-        position="0 -100 0"
-        rotation="-100 0 0"
+        position="0 -200 -100"
+        rotation="0 0 100"
       >
       </a-entity>
     </a-nft>
@@ -72,7 +72,7 @@
   <div class="centered">
     <button id="change" class="change-btn" data-action="change">Go to orrery</button>
   </div>
-  <script src="menu.js"></script>
+  <script src="ar.js"></script>
 
 </body>
 </html>
