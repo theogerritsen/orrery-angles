@@ -1,0 +1,213 @@
+<!doctype html>
+<html xmlns:fb="http://ogp.me/ns/fb#">
+	<head>	
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="author" content="Martin Vézina, La Grange">
+		<title>jsOrrery - Javascript Solar System Simulator</title>
+		<style>
+			body {
+				opacity: 0;
+			}
+		</style>
+		<meta property="og:title" content="jsOrrery - Solar System Simulator" /> 
+		<meta property="og:image" content="https://mgvez.github.io/jsorrery/img/jsorrery_likefb.jpg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:description" content="See the Solar System in your browser with jsOrrery, a Javascript / WebGL orbital mechanics simulator." />
+		<meta property="og:url" content="https://mgvez.github.io/jsorrery/" />
+		<meta name="twitter:creator" content="@m_vezina" />
+		<meta property="fb:app_id" content="400609246982045" />
+		<link rel="canonical" href="https://mgvez.github.io/jsorrery/" />
+		<link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+	<link href="jsorrery.css" rel="stylesheet">
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js' integrity='sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==' crossorigin='anonymous'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/ajaxify/8.2.3/ajaxify.js' integrity='sha512-jipua8AH9JbOGVVx5NLMMm8UXqdF7RG+8kVIiVfjniUbMdfPlragzf32/wQ4N9g4d+m5euXVIKxX3h2g4auqSQ==' crossorigin='anonymous'></script>
+
+</head>
+	<body id="jsorrery">
+		<!-- <nav id="gui">
+			
+			<div id="status">
+				<div id="startCont" class="inputContainer"></div>
+				<div id="dateDisplay"></div>
+			</div>
+			<label id="scenarioLabel">
+				<div>Scenario <span class="help fa fa-question-circle" data-for="helpScenario">&nbsp;</span></div>
+				<div id="scenarioCont" class="inputContainer"></div>
+			</label>
+			<label id="dateLabel">
+				<div>Date <span class="help fa fa-question-circle" data-for="helpDate">&nbsp;</span></div>
+				<div id="dateCont" class="inputContainer"></div>
+			</label>
+			<label id="lookFromLabel">
+				<div>Point of view <span class="help fa fa-question-circle" data-for="helpLookFrom">&nbsp;</span></div>
+				<div id="lookFromCont" class="inputContainer"></div>
+			</label>
+
+			<label id="geolocLabel">
+				<div>Lat/Lng</div>
+				<div id="geolocCont" class="inputContainer"></div>
+			</label>
+			
+			<label id="lookAtLabel">
+				<div>Look at <span class="help fa fa-question-circle" data-for="helpLookAt">&nbsp;</span></div>
+				<div id="lookAtCont" class="inputContainer"></div>
+			</label>
+			<label id="planetScaleLabel">
+				<div>Planet Scale <span class="valDisplay"></span>x <span class="help fa fa-question-circle" data-for="helpScale">&nbsp;</span></div>
+				<div id="planetScaleCont" class="inputContainer"></div>
+			</label>
+			<label id="deltaTLabel">
+				<div>Animation speed <span class="help fa fa-question-circle" data-for="helpDeltaT">&nbsp;</span></div>
+				<div id="deltaTCont" class="inputContainer"></div>
+			</label>
+
+			<label id="shareLabel">
+				<div id="shareCont" class="inputContainer"></div>
+			</label>
+			
+			<div id="shareWidget">
+				Direct link url
+				<input type="text" id="shareUrl">
+				<div id="social">
+					<div id="twitterShare" data-via="lagrange_mtl"></div>
+				</div>
+			</div>
+
+			<div id="navCollapse" class="fa fa-angle-double-up"></div>
+		</nav>
+		
+
+
+		<div class="helpContent" id="helpScenario">
+			<a class="close fa fa-close">&nbsp;</a>
+			<h2>Scenario</h2>
+			<p>The available scenarios are in fact collections of numbers that describe celestial bodies and their position. These numbers are coming, for the most part, from Nasa's websites. Their accuracy is quite impressive, more than enough for the context of this simulation. The picture that you see on any given date represents what the real Solar System looked like on that date.</p>
+		</div>
+		<div class="helpContent" id="helpDate">
+			<a class="close fa fa-close">&nbsp;</a>
+			<h2>Date</h2>
+			<p>The <a href="http://en.wikipedia.org/wiki/Orbital_elements" target="_blank">orbital elements</a> of the planets are used to calculate their original position when picking a date. These calculations produce a very good approximation of the positions : you can compare the stars and constellations that you see in the background from other sources, provided that you place the point of view on The Earth.</p>
+			<p>Some scenarios are set to be animated by calculating positions from the orbital elements, but in some cases the velocity of each planet is derived from these calculations so that the positions are no longer calculated from the elements, but from the gravity that is acting between the different bodies. The calculation of these forces is also an approximation using a Quadratic integration, and its precision decays over time. This decay is more pronounced in some scenarios.</p>
+			<p>You can find on the internet the dates of celestial events, for example eclipses or lunar phases, and check if you can observe them in this simulation.</p>
+			<p>Please note that I use the Gregorian calendar for all dates, whereas Nasa use the Julian calendar for dates before the Gregorian reform (before 1582-10-15).</p>
+			<p>It is also worth noting that I use the ELP2000-85 theory to compute the Moon's position, which is not the exact same theory used by Nasa to compute its eclipse canon, so that there are small differences in the position of the Moon, particularly for very ancient dates.</p> 
+		</div>
+		<div class="helpContent" id="helpLookFrom">
+			<a class="close fa fa-close">&nbsp;</a>
+			<h2>Point of view</h2>
+			<p>This option makes it possible to place the camera at the position of a planet of your choice, so you'd see the other planets from the point of view of the chosen one. From there you can zoom by scrolling.</p>
+			<p>The Free Camera is a camera that floats into space, and that you can move by scrolling and dragging. This camera always revolve around a point specified in the "look at" option field.</p>
+		</div>
+		<div class="helpContent" id="helpLookAt">
+			<a class="close fa fa-close">&nbsp;</a>
+			<h2>Look at</h2>
+			<p>You can make your selected camera look at a planet of your choice, so that it always will be centered in your viewport.</p>
+			<p>If you place the camera from the viewpoint of a planet and look at another one, the latter's path will be traced relative to the former's position. This feature is useful to observe the <a href="http://en.wikipedia.org/wiki/Apparent_retrograde_motion" target="_blank">apparent retrograde motion</a> of the planets relative to the Earth.</p>
+		</div>
+		<div class="helpContent" id="helpScale">
+			<a class="close fa fa-close">&nbsp;</a>
+			<h2>Planet scale</h2>
+			<p>When the scale is at 1x, the planets sizes are in 1:1 scale to the size of the orbits, and of the universe. Since the distances in the Solar System are so huge, we can't even see the planets at this scale, so I made it possible to make the planets larger to see them more easily. I left the possibility to view them at their real size, because I feel it gives a better hint about the vastness of our Solar System.</p>
+		</div>
+		<div class="helpContent" id="helpDeltaT">
+			<a class="close fa fa-close">&nbsp;</a>
+			<h2>Speed</h2>
+			<p>Move the slider to change animation speed. Depending on the scenario, precision of positions can decay with increased speed.</p>
+		</div>
+		<div class="helpContent" id="helpCredits">
+			<a class="close fa fa-close">&nbsp;</a>
+			<h2>Credits</h2>
+			<p>
+				<a href="http://la-grange.ca"><img src="img/logo-la-grange.png"></a>
+			</p>
+			<p>Programming by <a href="http://lab.la-grange.ca/en/martin-vezina">Martin Vézina</a>, <a href="http://la-grange.ca">La Grange</a>, 2013-2017.</p>
+			<p><a href="https://twitter.com/m_vezina" class="twitter-follow-button" data-show-count="false">Follow @m_vezina</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+			<p>See project on Github at <a href="https://github.com/mgvez/jsorrery">https://github.com/mgvez/jsorrery</a></p>
+
+			<h3>Special thanks</h3>
+			<ul>
+
+				<li>Planets orbital elements from Nasa's <a href="http://ssd.jpl.nasa.gov/?planet_pos">Jet Propulsion Laboratory</a>.</li>
+				<li>I learned about calculating positions from orbital elements by reading these documents by <a href="http://www.stargazing.net/kepler/ellipse.html">Keith Burnett</a>, <a href="http://www.stjarnhimlen.se/comp/tutorial.html">Paul Schlyter</a> and <a href="http://ssd.jpl.nasa.gov/txt/aprx_pos_planets.pdf">E M Standish (JPL)</a>.</li>
+				<li>Planet texture maps are a courtesy of <a href="http://planetpixelemporium.com/planets.html">James Hastings-Trew</a>.</li>
+				<li>Stars coordinates from <a href="http://astronexus.com/">AstroNexus</a> and <a href="http://heasarc.gsfc.nasa.gov/docs/archive.html">Nasa</a>.</li>
+				<li>David Eagle for orbital calculations of the moon, based on "Lunar Tables and Programs From 4000 B.C. TO A.D. 8000" by Michelle Chapront-Touze and Jean Chapront. See <a href="http://www.mathworks.com/matlabcentral/fileexchange/39130-orbital-elements-of-the-moon">mathworks.com</a>.</li>
+				<li><a href="http://www.braeunig.us/apollo/">Bob Braeunig</a> for calculations of Apollo missions trans lunar injection trajectories.</li>
+				<li>Quadratic integrations from <a href="http://orbit.medphys.ucl.ac.uk/">Orbiter</a>'s documentaion by Martin Schweiger.</li>
+				<li><a href="http://clowder.net/hop/index.html">Hop David</a> for vis viva calculation of velocity.</li>
+				<li>I have found answers to many questions on random places across the internetz, places like <a href="http://stackoverflow.com">StackOverflow</a> or <a href="http://www.orbiter-forum.com/">Orbiter Forum</a>. There are a lot of helpful people out there.</li>
+				<li>Some techniques are inspired by Michael Chang's <a href="http://www.html5rocks.com/en/tutorials/casestudies/100000stars/">tutorial</a> of <a href="http://workshop.chromeexperiments.com/stars/">100,000 stars</a></li>
+				<li>And of course, many thanks to <a href="http://www.mrdoob.com/">Mr Doob</a> for the excellent <a href="http://threejs.org/">three.js</a></li>
+			</ul>
+		</div>
+			
+		<div class="preload">
+			<div class="orbit"><div class="planet"></div></div>
+			<div class="title">
+				<h1>jsorrery</h1>
+				<h2>solar system</h2>
+			</div>
+		</div> -->
+
+		<div id="credits" class="help fa fa-question-circle" data-for="helpCredits">credits</div>
+		<script src="assets/data/elp.js"></script>
+		<script src="assets/data/vsop-earth.js"></script>
+		<script>
+
+			window.onJsOrreryLoaded = function(JSOrrery){
+				const jsOrrery = new JSOrrery('jsorrery');
+				jsOrrery.loadDefaultScenario();
+			}
+
+		</script>
+	<script type="text/javascript" src="jsorrery.js"></script>
+	<h1 class="output">
+		Click anywhere to get the planet's angle
+	</h1>
+	<h1 class="degrees">
+
+	</h1>
+	<div id="btn">
+		<div id="top"></div>
+		<div id="middle"></div>
+		<div id="bottom"></div>
+	</div>
+	<div id="box">
+		<fieldset>
+			<legend>Choose the grid's display: </legend>
+		
+			<div>
+			  <input class="check" type="checkbox" id="tenmeters" name="tenmeters" checked>
+			  <label for="tenmeters">10m graticule</label>
+			</div>
+		
+			<div>
+			  <input class="check" type="checkbox" id="fivemeters" name="fivemeters">
+			  <label for="fivemeters">5m graticule</label>
+			</div>
+			<div>
+				<input class="check" type="checkbox" id="onemeter" name="onemeter">
+				<label for="onemeter">1m graticule</label>
+			  </div>
+			  <div>
+				<input class="check" type="checkbox" id="labels" name="labels" checked>
+				<label for="labels">Show labels</label>
+			  </div>
+			  <div>
+				<input class="check" type="checkbox" id="circle" name="circle" checked>
+				<label for="circle">Show circle</label>
+			  </div>
+		</fieldset>
+	</div>
+	<div class="grid">
+		<div class="mysvg">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 195.48 197.01"><defs><style>.cls-1{fill:none;}.cls-1,.cls-2,.cls-3,.cls-4{stroke:#fff;stroke-miterlimit:10;}.cls-2,.cls-3,.cls-4,.cls-5{fill:#fff;}.cls-3{stroke-width:0.75px;}.cls-4{stroke-width:0.25px;}</style></defs><g id="cercle"><circle class="cls-1" cx="99.23" cy="97.66" r="89"/></g><g id="_10p" data-name="10p"><line class="cls-2" x1="189.21" y1="97.62" x2="9.21" y2="97.62"/><line class="cls-2" x1="172.03" y1="44.72" x2="26.4" y2="150.52"/><line class="cls-2" x1="127.03" y1="12.03" x2="71.4" y2="183.22"/><line class="cls-2" x1="71.4" y1="12.03" x2="127.03" y2="183.22"/><line class="cls-2" x1="26.4" y1="44.72" x2="172.03" y2="150.52"/></g><g id="_5p" data-name="5p"><line class="cls-3" x1="184.81" y1="69.81" x2="13.62" y2="125.43"/><line class="cls-3" x1="152.11" y1="24.81" x2="46.31" y2="170.43"/><line class="cls-3" x1="99.21" y1="7.62" x2="99.21" y2="187.62"/><line class="cls-3" x1="46.31" y1="24.81" x2="152.11" y2="170.43"/><line class="cls-3" x1="13.62" y1="69.81" x2="184.81" y2="125.43"/></g><g id="_1p" data-name="1p"><line class="cls-4" x1="182.89" y1="64.49" x2="15.53" y2="130.75"/><line class="cls-4" x1="147.44" y1="21.63" x2="50.99" y2="173.61"/><line class="cls-4" x1="93.56" y1="7.8" x2="104.86" y2="187.44"/><line class="cls-4" x1="41.85" y1="28.28" x2="156.58" y2="166.97"/><line class="cls-4" x1="12.04" y1="75.24" x2="186.39" y2="120"/><line class="cls-4" x1="180.65" y1="59.3" x2="17.78" y2="135.94"/><line class="cls-4" x1="142.57" y1="18.75" x2="55.86" y2="176.49"/><line class="cls-4" x1="87.93" y1="8.33" x2="110.49" y2="186.91"/><line class="cls-4" x1="37.6" y1="32.01" x2="160.82" y2="163.23"/><line class="cls-4" x1="10.81" y1="80.76" x2="187.62" y2="114.49"/><line class="cls-4" x1="178.08" y1="54.26" x2="20.35" y2="140.98"/><line class="cls-4" x1="137.53" y1="16.19" x2="60.89" y2="179.06"/><line class="cls-4" x1="82.35" y1="9.22" x2="116.08" y2="186.03"/><line class="cls-4" x1="33.61" y1="36.01" x2="164.82" y2="159.23"/><line class="cls-4" x1="9.92" y1="86.34" x2="188.5" y2="108.9"/><line class="cls-4" x1="175.2" y1="49.4" x2="23.22" y2="145.85"/><line class="cls-4" x1="132.34" y1="13.94" x2="66.08" y2="181.3"/><line class="cls-4" x1="76.83" y1="10.45" x2="121.6" y2="184.79"/><line class="cls-4" x1="29.87" y1="40.25" x2="168.56" y2="154.99"/><line class="cls-4" x1="9.39" y1="91.97" x2="189.04" y2="103.27"/><line class="cls-4" x1="168.56" y1="40.25" x2="29.87" y2="154.99"/><line class="cls-4" x1="121.6" y1="10.45" x2="76.83" y2="184.79"/><line class="cls-4" x1="66.08" y1="13.94" x2="132.34" y2="181.3"/><line class="cls-4" x1="23.22" y1="49.4" x2="175.2" y2="145.85"/><line class="cls-4" x1="9.39" y1="103.27" x2="189.04" y2="91.97"/><line class="cls-4" x1="164.82" y1="36.01" x2="33.61" y2="159.23"/><line class="cls-4" x1="116.08" y1="9.22" x2="82.35" y2="186.03"/><line class="cls-4" x1="60.89" y1="16.19" x2="137.53" y2="179.06"/><line class="cls-4" x1="20.35" y1="54.26" x2="178.08" y2="140.98"/><line class="cls-4" x1="9.92" y1="108.9" x2="188.5" y2="86.34"/><line class="cls-4" x1="160.82" y1="32.01" x2="37.6" y2="163.23"/><line class="cls-4" x1="110.49" y1="8.33" x2="87.93" y2="186.91"/><line class="cls-4" x1="55.86" y1="18.75" x2="142.57" y2="176.49"/><line class="cls-4" x1="17.78" y1="59.3" x2="180.65" y2="135.94"/><line class="cls-4" x1="10.81" y1="114.49" x2="187.62" y2="80.76"/><line class="cls-4" x1="156.58" y1="28.28" x2="41.85" y2="166.97"/><line class="cls-4" x1="104.86" y1="7.8" x2="93.56" y2="187.44"/><line class="cls-4" x1="50.99" y1="21.63" x2="147.44" y2="173.61"/><line class="cls-4" x1="15.53" y1="64.49" x2="182.89" y2="130.75"/><line class="cls-4" x1="12.04" y1="120" x2="186.39" y2="75.24"/></g><g id="_10m" data-name="10m"><path class="cls-5" d="M194,97.77c0,1.54-.57,2.4-1.58,2.4s-1.49-.83-1.51-2.34.66-2.37,1.59-2.37S194,96.32,194,97.77Zm-2.47.06c0,1.19.37,1.86.93,1.86s.92-.73.92-1.89-.28-1.86-.92-1.86S191.54,96.6,191.54,97.83Z"/><path class="cls-5" d="M172.32,153.11h0l-.79.43-.12-.47,1-.53h.52v4.55h-.6Z"/><path class="cls-5" d="M177.6,154.77c0,1.54-.57,2.4-1.58,2.4s-1.49-.83-1.51-2.34.66-2.37,1.59-2.37S177.6,153.32,177.6,154.77Zm-2.47.06c0,1.19.37,1.86.93,1.86s.93-.73.93-1.89-.29-1.86-.93-1.86S175.13,153.6,175.13,154.83Z"/><path class="cls-5" d="M125,190.09v-.37l.49-.47c1.16-1.11,1.69-1.7,1.69-2.39a.81.81,0,0,0-.9-.89,1.51,1.51,0,0,0-1,.39l-.2-.44a2,2,0,0,1,1.29-.46,1.28,1.28,0,0,1,1.39,1.32c0,.85-.61,1.53-1.57,2.45l-.36.34h2v.51Z"/><path class="cls-5" d="M131.6,187.77c0,1.54-.57,2.4-1.58,2.4s-1.49-.83-1.51-2.34.66-2.37,1.59-2.37S131.6,186.32,131.6,187.77Zm-2.47.06c0,1.19.37,1.86.93,1.86s.93-.73.93-1.89-.29-1.86-.93-1.86S129.13,186.6,129.13,187.83Z"/><path class="cls-5" d="M66.54,189.58a2.07,2.07,0,0,0,1,.28.9.9,0,0,0,1-.88c0-.64-.59-.91-1.18-.91h-.34v-.46h.34c.45,0,1-.24,1-.77,0-.37-.24-.69-.8-.69a1.64,1.64,0,0,0-.91.3l-.17-.44a2.13,2.13,0,0,1,1.19-.36c.9,0,1.31.53,1.31,1.09a1.14,1.14,0,0,1-.84,1.07v0a1.17,1.17,0,0,1,1,1.16c0,.73-.57,1.37-1.66,1.37a2.26,2.26,0,0,1-1.18-.31Z"/><path class="cls-5" d="M73,188c0,1.54-.58,2.4-1.58,2.4s-1.5-.83-1.51-2.34.66-2.37,1.58-2.37S73,186.51,73,188Zm-2.47.07c0,1.18.36,1.85.92,1.85s.93-.73.93-1.89-.29-1.86-.92-1.86S70.54,186.79,70.54,188Z"/><path class="cls-5" d="M19.91,155.16v-1.25H17.8v-.4l2-2.91h.66v2.84h.64v.47h-.64v1.25Zm0-1.72v-1.53c0-.24,0-.47,0-.71h0c-.14.27-.25.46-.38.67l-1.11,1.55v0Z"/><path class="cls-5" d="M24.63,152.83c0,1.55-.58,2.4-1.59,2.4s-1.49-.83-1.5-2.33.66-2.37,1.58-2.37S24.63,151.38,24.63,152.83Zm-2.48.07c0,1.18.37,1.85.93,1.85s.93-.73.93-1.89-.29-1.86-.93-1.86S22.15,151.66,22.15,152.9Z"/><path class="cls-5" d="M3.7,96.06H2l-.18,1.17a1.83,1.83,0,0,1,.37,0,1.88,1.88,0,0,1,1,.25,1.27,1.27,0,0,1,.65,1.17,1.58,1.58,0,0,1-1.69,1.55A2.25,2.25,0,0,1,1,99.89l.16-.47a2.07,2.07,0,0,0,1,.25,1,1,0,0,0,1.07-1c0-.58-.4-1-1.31-1a5.12,5.12,0,0,0-.63,0l.3-2.18H3.7Z"/><path class="cls-5" d="M7.6,97.77c0,1.54-.57,2.4-1.58,2.4s-1.49-.83-1.51-2.34.66-2.37,1.59-2.37S7.6,96.32,7.6,97.77Zm-2.47.06c0,1.19.37,1.86.93,1.86S7,99,7,97.8s-.29-1.86-.93-1.86S5.13,96.6,5.13,97.83Z"/><path class="cls-5" d="M21.59,41l-.47,0a1.84,1.84,0,0,0-1.58,1.62h0a1.38,1.38,0,0,1,2.47.94,1.52,1.52,0,0,1-1.51,1.61c-1,0-1.61-.76-1.61-1.94a2.85,2.85,0,0,1,.77-2,2.43,2.43,0,0,1,1.46-.68,2.54,2.54,0,0,1,.44,0Zm-.18,2.63a.92.92,0,0,0-.94-1,1,1,0,0,0-.88.56.54.54,0,0,0-.07.27c0,.75.35,1.31,1,1.31S21.41,44.25,21.41,43.6Z"/><path class="cls-5" d="M25.6,42.77c0,1.54-.57,2.4-1.58,2.4s-1.49-.83-1.51-2.34.66-2.37,1.59-2.37S25.6,41.32,25.6,42.77Zm-2.47.06c0,1.19.37,1.86.93,1.86S25,44,25,42.8s-.29-1.86-.93-1.86S23.13,41.6,23.13,42.83Z"/><path class="cls-5" d="M68.94,5.54v.4l-2,4.15h-.63l2-4H66.07V5.54Z"/><path class="cls-5" d="M72.6,7.77c0,1.54-.57,2.4-1.58,2.4s-1.49-.83-1.51-2.34.66-2.37,1.59-2.37S72.6,6.32,72.6,7.77Zm-2.47.06c0,1.19.37,1.86.93,1.86S72,9,72,7.8s-.29-1.86-.93-1.86S70.13,6.6,70.13,7.83Z"/><path class="cls-5" d="M124.93,8.94a1.33,1.33,0,0,1,.9-1.23v0a1.11,1.11,0,0,1-.73-1,1.28,1.28,0,0,1,1.42-1.21,1.17,1.17,0,0,1,1.32,1.12,1.14,1.14,0,0,1-.75,1.06v0A1.25,1.25,0,0,1,128,8.84a1.41,1.41,0,0,1-1.56,1.33A1.35,1.35,0,0,1,124.93,8.94Zm2.45,0c0-.55-.38-.82-1-1a1,1,0,0,0-.82.93.84.84,0,0,0,.91.87A.82.82,0,0,0,127.38,8.91Zm-1.69-2.28c0,.45.34.7.87.84a.89.89,0,0,0,.69-.83.71.71,0,0,0-.77-.74A.73.73,0,0,0,125.69,6.63Z"/><path class="cls-5" d="M131.6,7.77c0,1.54-.57,2.4-1.58,2.4s-1.49-.83-1.51-2.34.66-2.37,1.59-2.37S131.6,6.32,131.6,7.77Zm-2.47.06c0,1.19.37,1.86.93,1.86S131,9,131,7.8s-.29-1.86-.93-1.86S129.13,6.6,129.13,7.83Z"/><path class="cls-5" d="M172.35,43.66a2.26,2.26,0,0,0,.49,0,1.72,1.72,0,0,0,1-.43,2.07,2.07,0,0,0,.59-1.22h0a1.35,1.35,0,0,1-1.08.49A1.31,1.31,0,0,1,172,41.08a1.56,1.56,0,0,1,1.55-1.62c.93,0,1.51.76,1.51,1.92a2.89,2.89,0,0,1-.79,2.14,2.31,2.31,0,0,1-1.32.61,2.91,2.91,0,0,1-.56,0Zm.22-2.62a.88.88,0,0,0,.88,1,1,1,0,0,0,.89-.48.45.45,0,0,0,.06-.23c0-.78-.29-1.37-.94-1.37S172.57,40.4,172.57,41Z"/><path class="cls-5" d="M178.6,41.77c0,1.54-.57,2.4-1.58,2.4s-1.49-.83-1.51-2.34.66-2.37,1.59-2.37S178.6,40.32,178.6,41.77Zm-2.47.06c0,1.19.37,1.86.93,1.86S178,43,178,41.8s-.29-1.86-.93-1.86S176.13,40.6,176.13,41.83Z"/></g><g id="_5m" data-name="5m"><path class="cls-5" d="M99,2.27v.41L97,6.82h-.63l2-4v0H96.1V2.27Z"/><path class="cls-5" d="M102.32,2.79h-1.73L100.42,4a1.77,1.77,0,0,1,.37,0,1.93,1.93,0,0,1,1,.25,1.3,1.3,0,0,1,.65,1.17,1.58,1.58,0,0,1-1.7,1.55,2.21,2.21,0,0,1-1.13-.28l.15-.47a2.06,2.06,0,0,0,1,.26,1,1,0,0,0,1.07-1c0-.58-.39-1-1.3-1a3.6,3.6,0,0,0-.64,0l.3-2.19h2.17Z"/><path class="cls-5" d="M42.19,19.68a2.77,2.77,0,0,0-.46,0,1.82,1.82,0,0,0-1.58,1.61h0a1.39,1.39,0,0,1,2.48.94,1.53,1.53,0,0,1-1.52,1.61c-1,0-1.6-.76-1.6-1.94a2.86,2.86,0,0,1,.77-2.05,2.52,2.52,0,0,1,1.45-.68l.45,0ZM42,22.31a.93.93,0,0,0-.94-1,1,1,0,0,0-.89.56.67.67,0,0,0-.06.27c0,.75.35,1.31,1,1.31S42,23,42,22.31Z"/><path class="cls-5" d="M45.9,19.77H44.17L44,20.94a1.77,1.77,0,0,1,.37,0,1.91,1.91,0,0,1,1,.25A1.3,1.3,0,0,1,46,22.33a1.57,1.57,0,0,1-1.69,1.55,2.25,2.25,0,0,1-1.14-.28l.16-.47a2,2,0,0,0,1,.26,1,1,0,0,0,1.08-1c0-.58-.4-1-1.31-1a3.56,3.56,0,0,0-.63.05l.29-2.19H45.9Z"/><path class="cls-5" d="M9,66.58H7.28L7.1,67.75l.37,0a1.94,1.94,0,0,1,1,.25,1.28,1.28,0,0,1,.64,1.16A1.58,1.58,0,0,1,7.41,70.7a2.21,2.21,0,0,1-1.13-.28L6.43,70a2.07,2.07,0,0,0,1,.25,1,1,0,0,0,1.07-1c0-.59-.4-1-1.3-1a5.17,5.17,0,0,0-.64,0l.3-2.18H9Z"/><path class="cls-5" d="M12.6,66.58H10.87l-.17,1.17.36,0a1.94,1.94,0,0,1,1,.25,1.28,1.28,0,0,1,.65,1.16A1.59,1.59,0,0,1,11,70.7a2.21,2.21,0,0,1-1.13-.28L10,70a2.07,2.07,0,0,0,1,.25,1,1,0,0,0,1.07-1c0-.59-.4-1-1.3-1a5.17,5.17,0,0,0-.64,0l.3-2.18H12.6Z"/><path class="cls-5" d="M7.56,128.58v-1.24H5.45v-.41l2-2.9h.66v2.83h.64v.48H8.14v1.24Zm0-1.72v-1.53c0-.23,0-.47,0-.71h0c-.14.27-.25.46-.38.67l-1.11,1.55v0Z"/><path class="cls-5" d="M12,124.54H10.23l-.17,1.17.37,0a1.92,1.92,0,0,1,1,.24,1.31,1.31,0,0,1,.65,1.17,1.58,1.58,0,0,1-1.7,1.55,2.21,2.21,0,0,1-1.13-.28l.15-.47a2,2,0,0,0,1,.26,1,1,0,0,0,1.07-1c0-.59-.39-1-1.3-1a4.89,4.89,0,0,0-.64,0l.3-2.18H12Z"/><path class="cls-5" d="M39.64,175.49a2,2,0,0,0,1,.28.9.9,0,0,0,1-.88c0-.64-.59-.91-1.18-.91h-.35v-.46h.35c.45,0,1-.23,1-.77,0-.37-.23-.69-.8-.69a1.63,1.63,0,0,0-.9.3l-.17-.44a2.13,2.13,0,0,1,1.19-.35c.9,0,1.31.53,1.31,1.08a1.14,1.14,0,0,1-.84,1.07v0a1.18,1.18,0,0,1,1,1.17c0,.72-.57,1.36-1.66,1.36a2.26,2.26,0,0,1-1.18-.31Z"/><path class="cls-5" d="M45.79,172.16H44.06l-.17,1.17a1.77,1.77,0,0,1,.37,0,1.93,1.93,0,0,1,1,.25,1.3,1.3,0,0,1,.65,1.17,1.58,1.58,0,0,1-1.7,1.55,2.21,2.21,0,0,1-1.13-.28l.15-.47a2.06,2.06,0,0,0,1,.26,1,1,0,0,0,1.07-1c0-.58-.39-1-1.3-1a3.6,3.6,0,0,0-.64.05l.3-2.19h2.17Z"/><path class="cls-5" d="M95.59,194.11v-.38l.48-.47c1.17-1.1,1.7-1.69,1.7-2.38a.81.81,0,0,0-.9-.89,1.6,1.6,0,0,0-1,.38l-.19-.43a2,2,0,0,1,1.28-.46,1.28,1.28,0,0,1,1.4,1.32c0,.85-.61,1.53-1.57,2.45l-.36.33v0h2v.51Z"/><path class="cls-5" d="M101.9,190.07h-1.73l-.18,1.17.37,0a1.9,1.9,0,0,1,1,.24,1.29,1.29,0,0,1,.65,1.17,1.58,1.58,0,0,1-1.69,1.56,2.25,2.25,0,0,1-1.14-.28l.16-.47a2.06,2.06,0,0,0,1,.25,1,1,0,0,0,1.08-1c0-.59-.4-1-1.31-1a5.12,5.12,0,0,0-.63,0l.29-2.18h2.18Z"/><path class="cls-5" d="M152.59,173.28h0l-.79.42-.12-.46,1-.53h.52v4.55h-.59Z"/><path class="cls-5" d="M157.56,173.22h-1.73l-.18,1.17.37,0a1.9,1.9,0,0,1,1,.24,1.31,1.31,0,0,1,.65,1.17,1.57,1.57,0,0,1-1.69,1.55,2.25,2.25,0,0,1-1.14-.28l.16-.47a1.94,1.94,0,0,0,1,.26,1,1,0,0,0,1.08-1c0-.59-.4-1-1.31-1a4.87,4.87,0,0,0-.63,0l.29-2.18h2.18Z"/><path class="cls-5" d="M189.59,125h-1.74l-.17,1.17a2.89,2.89,0,0,1,.37,0,1.91,1.91,0,0,1,1,.25,1.31,1.31,0,0,1,.65,1.17,1.58,1.58,0,0,1-1.7,1.55,2.24,2.24,0,0,1-1.13-.28l.16-.47a2,2,0,0,0,1,.26,1,1,0,0,0,1.07-1c0-.58-.39-1-1.3-1a3.4,3.4,0,0,0-.63,0l.29-2.19h2.18Z"/><path class="cls-5" d="M186.53,71.46a3,3,0,0,0,.49,0,1.71,1.71,0,0,0,1-.44,2,2,0,0,0,.6-1.21h0a1.35,1.35,0,0,1-1.08.49,1.32,1.32,0,0,1-1.34-1.4,1.56,1.56,0,0,1,1.56-1.61c.92,0,1.5.75,1.5,1.92a2.89,2.89,0,0,1-.78,2.13,2.28,2.28,0,0,1-1.33.61,4.29,4.29,0,0,1-.56,0Zm.22-2.61a.87.87,0,0,0,.88,1,1,1,0,0,0,.89-.48.34.34,0,0,0,.06-.22c0-.78-.29-1.37-.93-1.37S186.75,68.2,186.75,68.85Z"/><path class="cls-5" d="M192.47,67.86h-1.73L190.57,69l.37,0a1.9,1.9,0,0,1,1,.24,1.31,1.31,0,0,1,.65,1.17,1.58,1.58,0,0,1-1.7,1.55,2.21,2.21,0,0,1-1.13-.28l.15-.47a2.06,2.06,0,0,0,1,.26,1,1,0,0,0,1.07-1c0-.59-.39-1-1.3-1a4.58,4.58,0,0,0-.63,0l.29-2.19h2.17Z"/><path class="cls-5" d="M152.66,23.23a1.32,1.32,0,0,1,.9-1.23v0a1.11,1.11,0,0,1-.72-1,1.28,1.28,0,0,1,1.41-1.21,1.17,1.17,0,0,1,1.32,1.12,1.14,1.14,0,0,1-.75,1.06v0a1.25,1.25,0,0,1,.92,1.17,1.4,1.4,0,0,1-1.55,1.33C153.23,24.46,152.66,23.89,152.66,23.23Zm2.45,0c0-.55-.39-.81-1-1a1,1,0,0,0-.83.94.84.84,0,0,0,.91.86A.83.83,0,0,0,155.11,23.19Zm-1.7-2.27c0,.45.35.7.87.84a.89.89,0,0,0,.69-.83.71.71,0,0,0-.77-.74A.73.73,0,0,0,153.41,20.92Z"/><path class="cls-5" d="M159,20.34h-1.74l-.17,1.17.37,0a1.9,1.9,0,0,1,1,.24,1.31,1.31,0,0,1,.65,1.17,1.58,1.58,0,0,1-1.69,1.56,2.25,2.25,0,0,1-1.14-.28l.16-.47a2,2,0,0,0,1,.25,1,1,0,0,0,1.08-1c0-.59-.4-1-1.31-1a5,5,0,0,0-.63,0l.29-2.18H159Z"/></g></svg>
+	</div>
+	</div>
+	<script src="menu.js"></script>
+</body>
+</html>
