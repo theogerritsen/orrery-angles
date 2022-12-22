@@ -101,7 +101,7 @@ $(function () {
 
     })
     $("#change").click(function() {
-        window.location.href = "orrey.html"
+        window.location.href = "/orrery-angles/orrery.html"
     })
 });
 
