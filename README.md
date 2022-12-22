@@ -1,3 +1,7 @@
+# NOT MY WORK !!
+
+jsOrerry is by no means my work. I copied the code entirely from the link you can find below. I just needed an orrery for a christmas gift and modified it a bit to get an augmented reality experience first, when scanning a business card and to add an overlay showing the planets angles in meters (0-100) in order to correct a physical orrery.
+
 # jsOrrery
 
 jsOrrery is a Solar System / orbital mechanics simulation, or orrery, that I wrote in WebGL and Javascript. The main feature of jsOrrery is that the planets positions are accurate in regards to the date you set, and it has the consequence that you can observe things that happen in the real Solar System.
