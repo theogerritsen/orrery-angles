@@ -96,8 +96,8 @@ window.addEventListener("touchstart", (e) => {
         deg = (deg + 360) % 360;
     }
 
-    deg = Math.round(deg * 100) / 100;
-    let meters = Math.round((deg / 360 * 100) * 1000) / 1000;
+    deg = 360 - (Math.round(deg * 100) / 100);
+    let meters = (Math.round((deg / 360 * 100) * 1000) / 1000);
     
     output.innerText = meters + " m";
     degrees.innerText = deg + "°";
